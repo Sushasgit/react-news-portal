@@ -3,11 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { removeArticle, editArticle, undoDelete } from '../../actions';
+import Toast from '../Toast';
+import Article from '../Article';
 
 const GridContainer = styled.section`
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  grid-auto-rows: 350px;
+  grid-auto-rows: 1fr;
   grid-auto-flow: dense;
   grid-gap: 1em;
   max-width: 1600px;
@@ -15,10 +17,11 @@ const GridContainer = styled.section`
   padding: 1em;
 `;
 
-const GridItem = styled.article`
+const GridItem = styled.a`
   grid-column-end: span ${props => props.width};
   display: flex;
-  flex-flow: column nowrap;
+  flex-direction: column;
+  text-decoration: none;
 `;
 
 const Image = styled.img`
@@ -31,24 +34,25 @@ function Grid(props) {
   const [undo, stopDelete] = useState(false);
   const [modalShow, setModalShow] = useState(false);
   const dispatch = useDispatch();
-  const { data } = props;
+  const { rows } = props;
   const modalTimer = useRef(null);
 
   const showModal = (rowId, article, index) => {
+    deleteItem(true);
     dispatch(removeArticle(rowId, article.id, index));
     setDeletedData({
+      ...items,
       rowId,
       article,
       index,
     });
-    deleteItem(!isTest);
   };
 
   useEffect(() => {
     if (isTest) {
       modalTimer.current = setTimeout(() => {
         deleteItem(false);
-      }, 2000);
+      }, 3000);
     }
     return () => modalTimer.current && clearTimeout(modalTimer.current);
   }, [isTest]);
@@ -59,44 +63,37 @@ function Grid(props) {
     deleteItem(false);
   };
 
-  return (
-    data &&
-    data.map((rows, i) => (
-      <GridContainer>
-        {console.log('DATA', data)}
-        {rows.columns &&
-          rows.columns.map((column, index) => (
-            <GridItem key={column.id} width={column.width}>
-              <h2>{column.title}</h2>
-              <Image src={column.imageUrl} />
-              <button
-                type="button"
-                onClick={() => {
-                  showModal(rows.id, column, index);
-                }}>
-                Delete
-              </button>
-            </GridItem>
-          ))}
-        {isTest ? (
-          <div>
-            Удалить?
-            <button
-              onClick={() => {
-                handleCancelCall();
-                console.log('Clck', undo);
-              }}>
-              Undo
-            </button>
-          </div>
-        ) : null}
-      </GridContainer>
-    ))
+  return rows ? (
+    <div>
+      {rows.map((row, i) => (
+        <GridContainer>
+          {row.columns &&
+            row.columns.map((column, index) => (
+              <GridItem href={column.url} target="_blank" key={column.id} width={column.width}>
+                {/* <h2>{column.title}</h2>
+                <Image src={column.imageUrl} />
+                <button
+                  disabled={isTest}
+                  type="button"
+                  onClick={() => {
+                    showModal(row.id, column, index);
+                  }}>
+                  Delete
+                </button> */}
+                <Article column={column} />
+                {isTest && items.rowId === row.id ? <Toast undoChanges={handleCancelCall} /> : null}
+              </GridItem>
+            ))}
+        </GridContainer>
+      ))}
+    </div>
+  ) : (
+    <div>Loading...</div>
   );
 }
 
 const mapStateToProps = state => ({
-  data: state.data,
+  rows: state.rows,
 });
 
 export default connect(mapStateToProps, {

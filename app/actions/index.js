@@ -1,5 +1,12 @@
 import { EDIT_ARTICLE, REMOVE_ARTICLE } from '../constants';
 
+export const fetchData = data => ({
+  type: 'FETCH_DATA',
+  payload: {
+    data,
+  },
+});
+
 export const editArticle = (article, id) => ({
   type: EDIT_ARTICLE,
   payload: {
