@@ -9,7 +9,6 @@
       "no-unused-vars": 0,
       "import/prefer-default-export": 0,
       "no-param-reassign": 0,
-      "react/no-array-index-key": 0,
       "jsx-a11y/anchor-is-valid": 0,
       "react/prefer-stateless-function": 0,
       "jsx-a11y/iframe-has-title": 0,

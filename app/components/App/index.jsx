@@ -1,32 +1,54 @@
 import React, { useEffect } from 'react';
+import {
+    BrowserRouter as Router,
+    Route,
+    NavLink,
+    Switch,
+} from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { ThemeProvider } from 'styled-components';
+
 import { getArticles } from '../../api';
 import { fetchData } from '../../actions';
-import Grid from '../Grid';
-
-const theme = {
-  primary: '#6e27c5',
-};
+import Titles from '../../pages/Titles';
+import Home from '../../pages/Home';
 
 function App() {
-  const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-  const getData = () => {
-    return dispatchAction => {
-      getArticles().then(res => dispatchAction(fetchData(res.data[0])));
+    const getData = () => {
+        return dispatchAction => {
+            getArticles().then(res => dispatchAction(fetchData(res.data[0])));
+        };
     };
-  };
 
-  useEffect(() => {
-    dispatch(getData());
-  }, []);
+    useEffect(() => {
+        dispatch(getData());
+    }, []);
 
-  return (
-    <ThemeProvider theme={theme}>
-      <Grid />
-    </ThemeProvider>
-  );
+    return (
+        <Router>
+            <main>
+                <nav className="nav">
+                    <ul className="navList">
+                        <li className="listItem">
+                            <NavLink activeClassName="activeLink" to="/">
+                                Home
+                            </NavLink>
+                        </li>
+                        <li className="listItem">
+                            <NavLink activeClassName="activeLink" to="/titles">
+                                Titles
+                            </NavLink>
+                        </li>
+                    </ul>
+                </nav>
+                <Switch>
+                    <Route path="/" exact component={Home} />
+                    <Route path="/titles" component={Titles} />
+                </Switch>
+            </main>
+        </Router>
+    );
 }
 
 export default App;
