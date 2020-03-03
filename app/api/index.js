@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { BASE_URL } from '../constants';
 
-export const getData = () => fetch(BASE_URL);
+export const getArticles = () => axios.get(BASE_URL);

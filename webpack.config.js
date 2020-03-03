@@ -76,5 +76,8 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.jsx', '.json'],
+      alias: {
+        "styled-components": path.resolve("./node_modules", "styled-components"),
+    }
   },
 };

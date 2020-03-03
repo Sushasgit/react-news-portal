@@ -12,10 +12,11 @@ const ToastWrap = styled.div`
   border-radius: 3px;
   display: flex;
   flex-direction: column;
+  min-width: 200px;
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
   &:before {
     content: '';
-    border-right: 5px solid #20bf6b;
+    border-right: 6px solid #000;
     position: absolute;
     top: 0;
     bottom: 0;
@@ -28,14 +29,14 @@ const Button = styled.button`
   font-weight: 900;
   background: #ffffff;
   padding: 10px;
-  border: 4px solid #20bf6b !important;
+  border: 4px solid #20bf6b;
   border-radius: 6px;
   display: inline-block;
   transition: all 0.3s ease 0s;
   &:hover {
-    color: #494949 !important;
+    color: #494949;
     border-radius: 50px;
-    border-color: #494949 !important;
+    border-color: #494949;
     transition: all 0.3s ease 0s;
   }
 `;
@@ -44,8 +45,7 @@ function Toast({ undoChanges }) {
   return (
     <Fragment>
       <ToastWrap>
-        <h3>You can restore changes</h3>
-        <Button onClick={() => undoChanges()}>Undo</Button>
+        <Button onClick={e => undoChanges(e)}>Undo delete</Button>
       </ToastWrap>
     </Fragment>
   );

@@ -7,10 +7,10 @@ export const fetchData = data => ({
   },
 });
 
-export const editArticle = (article, id) => ({
+export const editArticle = (title, id) => ({
   type: EDIT_ARTICLE,
   payload: {
-    article,
+    title,
     id,
   },
 });
