@@ -1,8 +1,13 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { ThemeProvider } from 'styled-components';
 import { getArticles } from '../../api';
 import { fetchData } from '../../actions';
 import Grid from '../Grid';
+
+const theme = {
+  primary: '#6e27c5',
+};
 
 function App() {
   const dispatch = useDispatch();
@@ -18,9 +23,9 @@ function App() {
   }, []);
 
   return (
-    <div>
+    <ThemeProvider theme={theme}>
       <Grid />
-    </div>
+    </ThemeProvider>
   );
 }
 

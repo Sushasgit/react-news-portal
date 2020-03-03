@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, Fragment } from 'react';
 import { useDispatch, connect } from 'react-redux';
 import styled from 'styled-components';
 
@@ -6,41 +6,8 @@ import { removeArticle, editArticle, undoDelete } from '../../actions';
 import { DeleteIcon, EditIcon } from '../Icons';
 import Toast from '../Toast';
 import Article from '../Article';
-
-const GridContainer = styled.section`
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-auto-rows: 1fr;
-  grid-auto-flow: dense;
-  grid-gap: 1em;
-  max-width: 1600px;
-  margin: 0 auto;
-  padding: 1em;
-
-  @media (max-width: 900px) {
-    grid-template-columns: repeat(6, 1fr);
-  }
-
-  @media (max-width: 720px) {
-    display: block;
-    padding: 0;
-  }
-`;
-
-const GridItem = styled.div`
-  grid-column-end: span ${props => props.width};
-  display: flex;
-  flex-direction: column;
-  position: relative;
-
-  @media (max-width: 900px) {
-    grid-column-end: span 3;
-  }
-
-  @media (max-width: 720px) {
-    margin-bottom: 1em;
-  }
-`;
+import GridItem from '../ui/GridItem';
+import GridContainer from '../ui/GridContainer';
 
 const ButtonGroup = styled.section`
   position: absolute;
@@ -91,11 +58,8 @@ function Grid(props) {
   const showModal = (e, rowId, article, index) => {
     e.preventDefault();
     deleteItem(true);
-    if (index) {
-      dispatch(removeArticle(rowId, article.id, index));
-    } else {
-      deleteItem(true);
-    }
+    dispatch(removeArticle(rowId, article.id, index));
+
     setDeletedData({
       rowId,
       article,
@@ -119,31 +83,34 @@ function Grid(props) {
   return rows ? (
     <div>
       {rows.map((row, i) => (
-        <GridContainer key={row.id}>
-          {row.columns &&
-            row.columns.map((column, index) => (
-              <GridItem href={column.url} target="_blank" key={column.id} width={column.width}>
-                <Article handleSubmit={handleSubmit} editMode={editMode} column={column} />
-                <ButtonGroup>
-                  <Button
-                    disabled={isTest}
-                    type="button"
-                    onClick={e => {
-                      showModal(e, row.id, column, index);
-                    }}>
-                    <DeleteIcon />
-                  </Button>
-                  <Button
-                    onClick={e => {
-                      editTitle(e, column.id);
-                    }}>
-                    <EditIcon />
-                  </Button>
-                </ButtonGroup>
-                {isTest && items.rowId === row.id ? <Toast undoChanges={handleCancelCall} /> : null}
-              </GridItem>
-            ))}
-        </GridContainer>
+        <Fragment key={row.id}>
+          <GridContainer>
+            {row.columns &&
+              row.columns.map((column, index) => (
+                <GridItem width={column.width}>
+                  <Article handleSubmit={handleSubmit} editMode={editMode} column={column} />
+                  <ButtonGroup>
+                    <Button
+                      disabled={isTest}
+                      type="button"
+                      onClick={e => {
+                        showModal(e, row.id, column, index);
+                      }}>
+                      <DeleteIcon />
+                    </Button>
+                    <Button
+                      onClick={e => {
+                        editTitle(e, column.id);
+                      }}>
+                      <EditIcon />
+                    </Button>
+                  </ButtonGroup>
+                </GridItem>
+              ))}
+          </GridContainer>
+
+          {isTest && items.rowId === row.id ? <Toast undoChanges={handleCancelCall} /> : null}
+        </Fragment>
       ))}
     </div>
   ) : (

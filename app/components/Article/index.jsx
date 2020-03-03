@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import styled from 'styled-components';
+import Button from '../ui/Button';
 
 const Image = styled.img`
   height: auto;
@@ -17,16 +18,6 @@ const Title = styled.h2`
   color: #fff;
   margin: 0;
   font-size: 25px;
-`;
-
-const SubmitButton = styled.button`
-  border-radius: 0 2px 2px 0;
-  padding: 10px;
-  display: inline-block;
-  border: 1px solid rgba(147, 128, 108, 0.25);
-  background-color: #bdbcbc;
-  font-weight: 900;
-  text-transform: uppercase;
 `;
 
 const Input = styled.input`
@@ -74,7 +65,7 @@ function Article({ column, editMode, handleSubmit }) {
         {editMode && editMode.editId === column.id ? (
           <Form onSubmit={e => handleSubmit(e, title, column.id)}>
             <Input onChange={e => handleChange(e)} value={title} type="text" />
-            <SubmitButton>Save</SubmitButton>
+            <Button type="submit" label="Save" />
           </Form>
         ) : (
           <Title>{column.title}</Title>

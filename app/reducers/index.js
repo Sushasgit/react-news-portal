@@ -33,7 +33,7 @@ function reducer(state = {}, action) {
       return {
         ...state,
         rows: state.rows.map(row => {
-          if (row.id === action.payload.rowId && action.payload.index) {
+          if (row.id === action.payload.rowId) {
             return {
               ...row,
               columns: insertByIndex(row.columns, action.payload.article, action.payload.index),
