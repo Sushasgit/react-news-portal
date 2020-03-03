@@ -18,6 +18,12 @@ const Button = ({ type, children, onClick, label, disabled, view }) => {
                     {children || label}
                 </BaseButton>
             );
+        case 'iconBtn':
+            return (
+                <IconButton type={type} disabled={disabled} onClick={onClick}>
+                    {children}
+                </IconButton>
+            );
         default:
             return (
                 <BaseButton type={type} disabled={disabled} onClick={onClick}>
@@ -57,6 +63,24 @@ const ConfirmButton = styled.button`
     &:hover {
         background: #000;
         color: #fff;
+    }
+`;
+
+const IconButton = styled.button`
+    background: #fff;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    border: none;
+    transition: color 0.6s ease-out;
+
+    &:hover {
+        background-color: #000;
+        color: #fff;
+    }
+
+    &:not(:last-child) {
+        margin: 0 10px;
     }
 `;
 

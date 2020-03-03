@@ -9,6 +9,7 @@ import GridItem from '../ui/GridItem';
 import GridContainer from '../ui/GridContainer';
 import Spinner from '../ui/Spinner';
 import Toast from '../ui/Toast';
+import Button from '../ui/Button';
 
 function ArticlesList(props) {
     const { rows, view } = props;
@@ -85,6 +86,7 @@ function ArticlesList(props) {
                                     />
                                     <ButtonGroup view={view}>
                                         <Button
+                                            view="iconBtn"
                                             disabled={deleteMode}
                                             type="button"
                                             onClick={e => {
@@ -98,6 +100,7 @@ function ArticlesList(props) {
                                             <DeleteIcon />
                                         </Button>
                                         <Button
+                                            view="iconBtn"
                                             onClick={e => {
                                                 editTitle(e, column.id);
                                             }}>
@@ -126,24 +129,6 @@ const ButtonGroup = styled.section`
     top: 20px;
     left: 20px;
     z-index: 100;
-`;
-
-const Button = styled.button`
-    background: #fff;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    border: none;
-    transition: color 0.6s ease-out;
-
-    &:hover {
-        background-color: #000;
-        color: #fff;
-    }
-
-    &:not(:last-child) {
-        margin: 0 10px;
-    }
 `;
 
 const mapStateToProps = state => ({
