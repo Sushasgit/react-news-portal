@@ -128,7 +128,7 @@ function ArticlesList(props) {
 const ButtonGroup = styled.section`
     position: ${props => (props.view === 'full' ? 'absolute' : 'static')};
     top: 20px;
-    left: 20px;
+    right: 20px;
     z-index: 100;
 `;
 

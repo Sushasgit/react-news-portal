@@ -29,7 +29,9 @@ function Article({ column, editMode, handleSubmit, view }) {
                 </ArticleLink>
             ) : null}
             {editMode && editMode.editId === column.id ? (
-                <Form onSubmit={e => handleSubmit(e, title, column.id)}>
+                <Form
+                    view={view}
+                    onSubmit={e => handleSubmit(e, title, column.id)}>
                     <Input handleChange={handleChange} title={title} />
                     <Button disabled={!title} type="submit" label="Save" />
                 </Form>
@@ -48,7 +50,7 @@ const Image = styled.img`
 
 const Form = styled.form`
     display: flex;
-    flex: 1;
+    flex: ${props => (props.view === 'full' ? 'unset' : '1')};
     margin-bottom: 10px;
 `;
 

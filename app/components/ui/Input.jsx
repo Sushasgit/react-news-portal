@@ -11,7 +11,6 @@ const InputField = styled.input`
     border-radius: 0 2px 2px 0;
     font-size: 16px;
     border-right: 0;
-    flex: 1;
     line-height: 1.15;
     border: 1px solid rgba(147, 128, 108, 0.25);
 `;
