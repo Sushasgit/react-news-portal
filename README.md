@@ -1,6 +1,6 @@
 ## This version created with React/Redux Hooks
 
-[Demo](https://sushasgit.github.io/react-news/
+[Demo](https://sushasgit.github.io/react-news/)
 
 To start the app do (development)
 
