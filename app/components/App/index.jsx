@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { HashRouter as Router, Route, NavLink, Switch } from 'react-router-dom';
+import { HashRouter as Router, Route, NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import { getArticles } from '../../api';

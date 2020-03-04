@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, Fragment } from 'react';
-import { useDispatch, connect } from 'react-redux';
+import { useDispatch, connect, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import { removeArticle, editArticle, undoDelete } from '../../actions';
@@ -12,11 +12,12 @@ import Toast from '../ui/Toast';
 import Button from '../ui/Button';
 
 function ArticlesList(props) {
-    const { rows, view } = props;
+    const { view } = props;
     const [deleteMode, deleteItem] = useState(false);
     const [deletedData, setDeletedData] = useState(false);
     const [editMode, editData] = useState(null);
 
+    const rows = useSelector(state => state.rows);
     const dispatch = useDispatch();
     const modalTimer = useRef(null);
 
@@ -131,11 +132,4 @@ const ButtonGroup = styled.section`
     z-index: 100;
 `;
 
-const mapStateToProps = state => ({
-    rows: state.rows,
-});
-
-export default connect(mapStateToProps, {
-    removeArticle,
-    editArticle,
-})(ArticlesList);
+export default ArticlesList;

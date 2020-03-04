@@ -9,7 +9,7 @@ import { insertByIndex } from '../utils/helpers';
 
 function reducer(state = {}, action) {
     switch (action.type) {
-        case 'FETCH_DATA':
+        case FETCH_DATA:
             return {
                 ...state,
                 rows: action.payload.data.map(row => {
@@ -37,7 +37,7 @@ function reducer(state = {}, action) {
                 })),
             };
 
-        case 'RESTORE_ARTICLE':
+        case RESTORE_ARTICLE:
             return {
                 ...state,
                 rows: state.rows.map(row => {
@@ -55,7 +55,7 @@ function reducer(state = {}, action) {
                 }),
             };
 
-        case 'EDIT_ARTICLE':
+        case EDIT_ARTICLE:
             return {
                 ...state,
                 rows: state.rows.map(row => ({
