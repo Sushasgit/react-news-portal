@@ -1,10 +1,5 @@
 import React, { useEffect } from 'react';
-import {
-    BrowserRouter as Router,
-    Route,
-    NavLink,
-    Switch,
-} from 'react-router-dom';
+import { HashRouter as Router, Route, NavLink, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import { getArticles } from '../../api';
@@ -42,10 +37,8 @@ function App() {
                         </li>
                     </ul>
                 </nav>
-                <Switch>
-                    <Route path="/" exact component={Home} />
-                    <Route path="/titles" component={Titles} />
-                </Switch>
+                <Route path="/" exact component={Home} />
+                <Route path="/titles" component={Titles} />
             </main>
         </Router>
     );

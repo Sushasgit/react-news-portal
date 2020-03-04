@@ -3,9 +3,8 @@ const HtmlWebPackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CompressionPlugin = require('compression-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
-
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const APP_DIR = path.resolve(__dirname, 'app');
 const BUILD_DIR = path.resolve(__dirname, 'dist');
 const env = process.env.NODE_ENV || 'development';
@@ -62,10 +61,21 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: 'bundle.css',
     }),
-    new CompressionPlugin({
-      algorithm: 'gzip',
-      test: /\.jsx?$|\.s?css$/,
-      minRatio: 0.8,
+    new UglifyJsPlugin({
+      uglifyOptions:{
+        output: {
+          comments: false,
+        },
+        compress: {
+          unused: true,
+          dead_code: true, 
+          conditionals: true,
+          evaluate: true,
+          drop_console: true, 
+          sequences: true,
+          booleans: true,
+        }
+      },
     }),
   ],
   devServer: {
